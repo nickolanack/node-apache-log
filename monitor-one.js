@@ -16,7 +16,7 @@ require('fs').exists(path,function(exits){
 	if(exits){
 		
 		require('./nasql.js').monitor(label , path).on('access',function(data){
-			console.log(JSON.stringify(data));
+			console.log(require('./log-format.js').format(data));
 		});	
 
 	}else{
