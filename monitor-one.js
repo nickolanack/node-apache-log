@@ -15,7 +15,27 @@ require('fs').exists(path,function(exits){
 
 	if(exits){
 		
+		var lastlocation=false;
+		var lastip=null;
+		var colors = require("colors");
+		
 		require('./nasql.js').monitor(label , path).on('access',function(data){
+			
+			var location=(function(obj){
+				if(obj===false)return false;
+				return obj.city+', '+obj.region_name+', '+obj.country_name;
+
+			})(require('./node-freegeoip.js').lookup(data.ip));
+			
+			if(lastlocation!==location||lastip!==data.ip){
+				console.log('');
+				console.log(colors.blue(data.ip+': '+(location!==false?', '+location:'')));
+				
+	
+				lastlocation=location;
+				lastip=data.ip;
+			}
+			
 			console.log(require('./log-format.js').format(data));
 		});	
 
