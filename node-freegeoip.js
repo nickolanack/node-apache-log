@@ -2,10 +2,14 @@ module.exports={
 	geocode:geocode,
 	lookup:function(ip){
 
-		if(cache[ip]!==undefined){
+		if(cache[ip]){
                 	return cache[ip];
-        	}
-		geocode(ip); //lookup for later.
+        }
+		
+		if(cache[ip]===undefined){
+			cache[ip]=false; //set to false so that next method call does not send https request
+			geocode(ip); //lookup for later.
+		}
 		return false;
 	}
 };
@@ -18,7 +22,7 @@ function geocode(ip, callback){
 
 	
 
-	if(cache[ip]!==undefined){
+	if(cache[ip]){
 		if(callback)callback(cache[ip]);
 		return;
 	}
