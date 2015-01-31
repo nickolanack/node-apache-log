@@ -23,6 +23,7 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 	var sqlfile=''; //random disk based file (non-persistant).
 	var db=new db(sqlfile);
 	
+	//check table and if it does not exist. then create it.
 	db.get('SELECT name FROM sqlite_master WHERE type=\'table\' and name=\'access_log\'',function(err, row){
 	
 	        if(err)throw err;
@@ -30,6 +31,7 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 	        if(row===undefined){
 	                db.run('CREATE TABLE access_log(ip TEXT, time INTEGER, method TEXT, url TEXT, version TEXT,  status INTEGER, bytes INTEGER)');
 	        }else{
+	        		//it did exists, print all records.
 	                db.each('SELECT * FROM access_log ORDER BY time ASC', function(err, row){
 	                        console.log(JSON.stringify(row));
 	                });
