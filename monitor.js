@@ -49,7 +49,7 @@ require('child_process').exec('httpd -t -D DUMP_VHOSTS', function (err, stdout, 
 				//log-format returns a formatted log string
 				console.log(require('./log-format.js').format(data));
 
-			})
+			});
 	
 		});
 			

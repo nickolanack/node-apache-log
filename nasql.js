@@ -86,18 +86,22 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 			//console.log(lastSize+' '+stat.size+' '+size);
 			fs.open(resource, 'r', function(err, fd) {
    				 if (err) {
+   					 	fs.close(fd);
         				console.error(err);
         				reading=false;	
-					return;
+        				return;
     				}
     				var buffer = new Buffer(size);
     				fs.read(fd, buffer, 0, size, stat.size-size, function(err, num) {
-        			
+    				fs.close(fd); //close, done.
 					if(err){
+						
 						console.log('read err');
 						reading=false;
 						return false;
 					}
+					
+					
 
 					/*
  					 * 213.249.50.91 - - [29/Jan/2015:21:56:52 -0800] "GET /component/content//index.php?option=com_jce&task=plugin&plugin=imgmanager&file=imgmanager&method=form&cid=20&6bc427c8a7981f4fe1f5ac65c1246b5f=cf6dd3cf1923c950586d0dd595c8e20b HTTP/1.1" 403 28776
@@ -126,7 +130,7 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 					//console.log('watch('+resource+')');
 					listener=fs.watchFile(resource, watch).on('error',function(err){
            					reading=false;
-                				console.error(err);
+                			console.error(err);
         				});	
 
 					setTimeout(function(){
