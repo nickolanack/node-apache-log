@@ -2,6 +2,9 @@ module.exports = {
                 format: format
 }
 
+
+var colors = require("colors");
+
 function format(data){
 	
 	

@@ -14,7 +14,7 @@ require('child_process').exec('httpd -t -D DUMP_VHOSTS', function (err, stdout, 
 	var lastlocation=false;
 	var lastip=null;
 	
-	var colors = require("colors");
+	
 
 	vhosts.forEach(function(vh){
 		fs.readFile(vh.conf[0], function (err, data) {
