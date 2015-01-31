@@ -1,4 +1,8 @@
 # node-apache-log
+
+btw: this tool has been created for my own use on rhel6 server with apache 2.2.15. If this does not work for your system
+feel free to make modifications
+
 node-apache-log is a node.js utility to monitor an apache server by detecting log file updates. 
 there are two utilities monitor.js and monitor-one.js both log client access by parsing changes to the apache access logs. 
 
