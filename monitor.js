@@ -46,63 +46,8 @@ require('child_process').exec('httpd -t -D DUMP_VHOSTS', function (err, stdout, 
 					lastlocation=location;
 					lastip=data.ip;
 				}
-				
-				
-						
-
-				console.log((function(d){
-					var url=d.url;
-					var method=d.method;
-					if(d.url.indexOf('/administrator')!==-1){
-						url=colors.red(url);
-					}
-					
-					if(url.indexOf('index.php?option=com_geolive&format=ajax')!==-1){
-						url=colors.blue('Geolive: ')+'ajax task: '+colors.blue(url.split('&task=')[1].split('&')[0]);
-					}
-					
-					if(d.method=='POST'){
-						method=colors.red(method)
-					}
-
-					if(d.method=='GET'){
-                                                method=colors.green(method)
-                                        }
-				
-					var status=d.status;
-					
-					if((['200', '304']).indexOf(status)!==-1){
-						status=colors.green(status);
-					}
-					if((['403', '404', '500']).indexOf(status)!==-1){
-                                                status=colors.red(status);
-                                        }
-					
-					var bytes=d.bytes;
-					var units='b';
-					if(bytes>1024){
-						bytes=bytes/1024.0;
-						units='kb';
-					}
-			
-					if(bytes>1024){
-						bytes=bytes/1024.0;
-                                                units='mb';
-					}
-
-					if(bytes>1024){
-                                                bytes=bytes/1024.0;
-                                                units='gb';
-                                        }
-					
-					if(units!=='b'){
-						bytes=Math.round(bytes*10)/10.0;
-					}
-					
-					return  'Request: '+method+' '+url+', '+
-					   	'Status: '+status+', '+
-						'Sent: '+bytes+units; //' - '+d.stat_size;
-				})(data));
+				//log-format returns a formatted log string
+				console.log(require('./log-format.js').format(data));
 
 			})
 	
