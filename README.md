@@ -7,7 +7,7 @@ The logger tool also maintains sqlite3 file databases for each vhost (storing ac
 When a client access an apache server url, the logger detects the monification to the log file, parses, and prints
 a message to the terminal. 
 
-
+Reverse geocoded location data (from ip) is also displayed in the terminal. However, on a clients first visit a request is made to freegeoip for location data and until the location information recieved log entries are printed without it.
 
 
 requires node modules sqlite3, colors, and uses fs.watchFile. 
