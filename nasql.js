@@ -7,6 +7,7 @@ function ApacheLogMonitor(name, logfile, format){
 	
 	
 	var me=this;
+	me._debug=false;
 	events.EventEmitter.call(me);
 	if(format===undefined)format='common';
 	
@@ -14,7 +15,7 @@ function ApacheLogMonitor(name, logfile, format){
 	if(formats.indexOf(format)===-1){
 		throw new Error('Unknown log format: \''+format+'\'. Epected one of '+JSON.stringify(formats));
 	}
-	
+	me._format=format;
 	me._parseLine=require('./apache-format/'+format+'.js').parse;
 
 	me._name=name;
@@ -32,7 +33,13 @@ function ApacheLogMonitor(name, logfile, format){
 };
 
 ApacheLogMonitor.prototype.__proto__=events.EventEmitter.prototype;
-
+ApacheLogMonitor.prototype.debug=function(){
+	
+	var me=this;
+	me._debug=true;
+	return me;
+	
+}
 ApacheLogMonitor.prototype._monitor=function(resource){
 	
 	var me=this;
@@ -82,6 +89,7 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 	var lastSize=0;
 	fs.stat(resource, function(err,stat){
 		if(err){
+			console.log('fs.stat error');
 			console.error(err);
 			return;
 		}
@@ -95,7 +103,7 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 	var watch=function(event){
 		if(reading){
 			return;
-			console.log('skip');	
+			console.log('skip (concurrency)');	
 		}
 		//console.log(event+' '+me._name+' '+JSON.stringify(name));
 		reading=true;
@@ -110,10 +118,14 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 				reading=false;
 				return;
 			}
-			//console.log(lastSize+' '+stat.size+' '+size);
+			//
+			if(me._debug){
+				console.log(resource+': '+JSON.stringify({last:lastSize, current:stat.size, increase:size}));
+			}
 			fs.open(resource, 'r', function(err, fd) {
    				 if (err) {
    					 	fs.close(fd);
+   					 	console.log('fs.open error');
         				console.error(err);
         				reading=false;	
         				return;
@@ -122,7 +134,7 @@ ApacheLogMonitor.prototype._monitor=function(resource){
     				fs.read(fd, buffer, 0, size, stat.size-size, function(err, num) {
     				fs.close(fd); //close, done.
 					if(err){
-						
+						console.log('fs.read error');
 						console.log('read err');
 						reading=false;
 						return false;
@@ -144,10 +156,17 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 						reading=false;
 						return;
 					}
+					
+					if(me._debug){
+						console.log(resource+': '+lines.length+' line'+(lines.length==1?'':'s'));
+					}
+					
 					lines.forEach(function(line){
+						
 						var data=me._parseLine(line);
 						data.stat_size=stat.size
-						me.emit(data.event, data);			
+						me.emit("log."+data.event, data);	
+						//console.log("log."+data.event);
 					});
 
 					
@@ -157,6 +176,7 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 					//console.log('watch('+resource+')');
 					listener=fs.watchFile(resource, watch).on('error',function(err){
            					reading=false;
+           					console.log('fs.watchFile error');
                 			console.error(err);
         				});	
 
@@ -170,6 +190,7 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 	//console.log('watch('+resource+')');
  	listener=fs.watchFile(resource, watch).on('error',function(err){
 		reading=false;
+		console.log('fs.watchFile error');
 		console.error(err);
 	});
 	
@@ -181,7 +202,10 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 
 
 module.exports = {
-                monitor: function(name, file){
-			return new ApacheLogMonitor(name, file);
-		}
+        monitor: function(name, file, format){
+			return new ApacheLogMonitor(name, file, format);
+		},
+		debug:function(name, file, format){
+			return (new ApacheLogMonitor(name, file, format)).debug();
+		},
 }

@@ -23,14 +23,14 @@ require('child_process').exec('httpd -t -D DUMP_VHOSTS', function (err, stdout, 
 			vh.config=config;
 		
 			//console.log(JSON.stringify(vh, null, "\t"));
-			console.log('starting monitor: '+vh.name+' '+config.log);		
+			console.log('starting monitor: '+vh.name+' '+config.log+' and '+config.error.split("/").pop());		
 			//console.log(config); process.exit(0);
 			
 			//return;
 			//
 				
 			
-			require('./nasql.js').monitor(vh.name , config.log).on('access',function(data){
+			require('./nasql.js').monitor(vh.name , config.log).on('log.access',function(data){
 				
 				var location=(function(obj){
 					if(obj===false)return false;
@@ -51,7 +51,7 @@ require('child_process').exec('httpd -t -D DUMP_VHOSTS', function (err, stdout, 
 
 			});
 			
-			require('./nasql.js').monitor(vh.name , config.error, 'error').on('error',function(data){
+			require('./nasql.js').debug(vh.name , config.error, 'error').on('log.error',function(data){
 				
 				console.log(JSON.stringify(data));
 

@@ -48,6 +48,7 @@ function geocode(ip, callback){
 			}
 		});
 	}).on('error', function(e) {
+		  console.log('freegeoip https lookup error');
 		  console.error(e);
 	});
 }

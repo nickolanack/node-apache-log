@@ -40,7 +40,7 @@ require('fs').exists(path,function(exits){
 		});	
 
 	}else{
-		console.log('file does not exist');
+		console.log('file:'+path+' does not exist');
 		process.exit(1);
 	}
 
