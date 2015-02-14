@@ -50,6 +50,12 @@ require('child_process').exec('httpd -t -D DUMP_VHOSTS', function (err, stdout, 
 				console.log(require('./log-format.js').format(data));
 
 			});
+			
+			require('./nasql.js').monitor(vh.name , config.error).on('access',function(data){
+				
+				console.log(JSON.stringify(data));
+
+			});
 	
 		});
 			

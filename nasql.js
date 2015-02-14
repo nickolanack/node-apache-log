@@ -8,7 +8,6 @@ function ApacheLogMonitor(name, logfile){
 
 	me._name=name;
 	me._logfile=logfile;
-
 	me._monitor(logfile);
 
 };
@@ -18,7 +17,11 @@ ApacheLogMonitor.prototype.__proto__=events.EventEmitter.prototype;
 ApacheLogMonitor.prototype._monitor=function(resource){
 	
 	var me=this;
-
+	
+	/*
+	
+	//I've commented out the database section, since it is not being used at the moment.
+	
 	var db=require('sqlite3').Database;
 	var sqlfile=''; //random disk based file (non-persistant).
 	var db=new db(sqlfile);
@@ -54,6 +57,7 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 
 	});
 
+	*/
 
 	var fs=require('fs');	
 	var lastSize=0;
