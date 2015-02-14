@@ -53,7 +53,7 @@ require('child_process').exec('httpd -t -D DUMP_VHOSTS', function (err, stdout, 
 				console.log(JSON.stringify(data));
 			});
 			
-			require('./nasql.js').debug(vh.name , config.error, 'error').on('log.error',function(data){
+			require('./nasql.js').monitor(vh.name , config.error, 'error').on('log.error',function(data){
 				
 				console.log(JSON.stringify(data));
 

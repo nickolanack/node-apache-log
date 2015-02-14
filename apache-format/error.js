@@ -22,14 +22,15 @@ function parse(line){
 		var client=line.split(']',1)[0];
 		var error=line.substring(client.length+1).replace(/^\s+/g, '');
 		
-		client=client.substring(client.indexOf(':')+1).replace(/^\s+/g, '');
+		client=client.substring(client.indexOf(' ')+1).replace(/^\s+/g, '');
 	
 	     var data={
 	    		 event:'error',
 	            // line:line,
 	             time:date,
 	             type:type,
-	             error:error
+	             error:error,
+	             ip:client
 	             
 	     }
 	}catch(e){
