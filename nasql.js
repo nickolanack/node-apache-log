@@ -1,6 +1,8 @@
 
 
 var events=require('events');
+var fs=require('fs');	
+
 function ApacheLogMonitor(name, logfile){
 	
 	var me=this;
@@ -8,7 +10,15 @@ function ApacheLogMonitor(name, logfile){
 
 	me._name=name;
 	me._logfile=logfile;
-	me._monitor(logfile);
+	
+	fs.exists(logfile, function(exists){
+		if(exists){
+			me._monitor(logfile);
+		}else{
+			console.log('file does not exist: '+logfile+', done.');
+		}
+	})
+	
 
 };
 
@@ -59,9 +69,13 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 
 	*/
 
-	var fs=require('fs');	
+	
 	var lastSize=0;
 	fs.stat(resource, function(err,stat){
+		if(err){
+			console.error(err);
+			return;
+		}
 		lastSize=stat.size;
 	});
 	

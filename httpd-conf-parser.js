@@ -8,9 +8,9 @@ function parse(conf, line){
 	
 	
 
-	var root=conf.split('DocumentRoot')[1].split("\n")[0].replace(/^\s+/g, '').split(' ')[0];
-	var log=conf.split('CustomLog')[1].split("\n")[0].replace(/^\s+/g, '').split(' ')[0];
-	var error=conf.split('ErrorLog')[1].split("\n")[0].replace(/^\s+/g, '').split(' ')[0];
+	var root=conf.split('DocumentRoot')[1].split("\n")[0].replace(/^\s+/g, '').split(' ')[0].replace("\r","");
+	var log=conf.split('CustomLog')[1].split("\n")[0].replace(/^\s+/g, '').split(' ')[0].replace("\r","");
+	var error=conf.split('ErrorLog')[1].split("\n")[0].replace(/^\s+/g, '').split(' ')[0].replace("\r","");
 
 	return {root:root, log:log, error:error};
 
