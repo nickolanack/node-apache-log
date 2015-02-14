@@ -164,6 +164,15 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 					lines.forEach(function(line){
 						
 						var data=me._parseLine(line);
+						if((typeof data)!=='object'){
+							data={
+								event:'exception',
+								error:'log parser did not return object for line',
+								line:line
+							};
+							me.emit('error', data);	
+							return;
+						}
 						data.stat_size=stat.size
 						me.emit("log."+data.event, data);	
 						//console.log("log."+data.event);

@@ -4,12 +4,15 @@ module.exports = {
 }
 
 function parse(line){
-	
-	var date=line.split(']',1)[0];
-	line=line.substring(date.length+1);
-	
 	try{
-		date=data.replace(/^\s+/g, '').substring(1);
+		
+		
+		var date=line.split(']',1)[0];
+		line=line.substring(date.length+1);
+		
+	
+	
+		date=date.replace(/^\s+/g, '').substring(1);
 		
 		var type=line.split(']',1)[0];
 		line=line.substring(type.length+1);
