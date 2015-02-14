@@ -15,7 +15,7 @@ function ApacheLogMonitor(name, logfile, format){
 		throw new Error('Unknown log format: \''+format+'\'. Epected one of '+JSON.stringify(formats));
 	}
 	
-	me._parseLine=require('./apache-formats/'+format+'.js').parse;
+	me._parseLine=require('./apache-format/'+format+'.js').parse;
 
 	me._name=name;
 	me._logfile=logfile;
