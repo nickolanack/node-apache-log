@@ -26,7 +26,7 @@ function parse(line){
                      return s;
 
              })(parts[9]),
-             recieved:(function(size){
+             received:(function(size){
 
                  var s=parseInt(size);
                  if(isNaN(s))return 0;

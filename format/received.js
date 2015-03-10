@@ -3,8 +3,10 @@ module.exports = {
 }
 function format(data){
 	
+	if(data.received===undefined)return;
 	
-	var bytes=data.bytes;
+	var bytes=data.received;
+	
 	var units='b';
 	if(bytes>1024){
 		bytes=bytes/1024.0;
@@ -25,7 +27,7 @@ function format(data){
 		bytes=Math.round(bytes*10)/10.0;
 	}
 	
-	return {bytes:bytes+units};
+	return {received:bytes+units};
 	
 	
 }

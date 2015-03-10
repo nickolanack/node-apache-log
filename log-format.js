@@ -17,7 +17,7 @@ function format(data){
 		fobj[k]=data[k];
 	});
 	
-	['status', 'size', 'method', 'joomla', 'geolive'].forEach(function(formatter){
+	['status', 'size', 'method', 'received', 'time', 'joomla', 'geolive'].forEach(function(formatter){
 		
 		var obj=require('./format/'+formatter+'.js').format(data);
 		if(obj!==null&&(typeof obj)=='object'){
@@ -30,7 +30,7 @@ function format(data){
 	
 	return  'Request: '+fobj.method+' '+fobj.url+', '+
 	   	'Status: '+fobj.status+', '+
-		'Sent: '+fobj.bytes; //' - '+data.stat_size;
-
+		'Sent: '+fobj.bytes+(fobj.received!==undefined?' Recieved: '+fobj.received:'')+(fobj.time!==undefined?' Time: '+fobj.time:''); //' - '+data.stat_size;
+		
 	
 }

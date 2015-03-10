@@ -11,7 +11,7 @@ function ApacheLogMonitor(name, logfile, format){
 	events.EventEmitter.call(me);
 	if(format===undefined)format='common';
 	
-	var formats=['common', 'error'];
+	var formats=['common', 'error', 'stats'];
 	if(formats.indexOf(format)===-1){
 		throw new Error('Unknown log format: \''+format+'\'. Epected one of '+JSON.stringify(formats));
 	}
