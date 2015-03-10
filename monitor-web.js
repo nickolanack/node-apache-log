@@ -1,6 +1,6 @@
 
-if(process.argv.length<=3){
-	console.log('requires string:indentifier string:pathto-access_log, [label]');
+if(process.argv.length<=2){
+	console.log('requires string:indentifier [string:pathto-access_log], [label]');
 	process.exit(1);
 }
 
@@ -8,11 +8,7 @@ var settings='./monitor_sock.json';
 var myname=process.argv[2];
 
 
-var path=process.argv[3];
-var label=path.split('/').pop();
-if(process.argv.length>=5){
-	label=process.argv[4];
-}
+
 
 
 var request=function(){
@@ -61,28 +57,39 @@ if(require('fs').exists(settings,function(exists){
 		
 	}else{
 		
-		
-		//start process.
-		
-		var out = require('fs').openSync('./monitor.log', 'a');
-		var err = require('fs').openSync('./monitor.log', 'a');
-		console.log('node '+__dirname+'/sock-monitor.js');
-		var child = require('child_process').spawn('node',[
-		                                                   __dirname+'/sock-monitor.js',
-		                                                   path,
-		                                                   label
-		                                                   ], {
-			detached: true,
-			stdio: [ 'ignore', out, err ]
-		});
-		
-
-		child.unref();
-		
-		setTimeout(function(){
-			//console.log('wait');
-			request();
-			}, 250);
+		if(process.argv.length>=4){
+			
+			var path=process.argv[3];
+			var label=path.split('/').pop();
+			if(process.argv.length>=5){
+				label=process.argv[4];
+			}
+			
+			
+			//start process.
+			
+			var out = require('fs').openSync('./monitor.log', 'a');
+			var err = require('fs').openSync('./monitor.log', 'a');
+			console.log('node '+__dirname+'/sock-monitor.js');
+			var child = require('child_process').spawn('node',[
+			                                                   __dirname+'/sock-monitor.js',
+			                                                   path,
+			                                                   label
+			                                                   ], {
+				detached: true,
+				stdio: [ 'ignore', out, err ]
+			});
+			
+	
+			child.unref();
+			
+			setTimeout(function(){
+				//console.log('wait');
+				request();
+				}, 250);
+		}else{
+			console.log(JSON.stringify([{event:'exception', message:'could not find socket'}]));
+		}
 		
 	}
 	

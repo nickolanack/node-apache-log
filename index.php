@@ -10,9 +10,7 @@
 		
 		//shell_exec('cd '.__DIR__);
 		//echo shell_exec('pwd');
-		$cmd='node '.escapeshellarg('node-apache-log/monitor-web.js').
-			' '.$id.' '.escapeshellarg('/var/log/httpd/bcmarinetrails-access_log').
-			' 2>&1';
+		$cmd='node '.escapeshellarg('node-apache-log/monitor-web.js').' 2>&1';
 		echo shell_exec($cmd);
 		//echo $cmd;
 	
@@ -25,7 +23,6 @@
 	<head>
 		<style type="text/css">
 		
-
 			body {
 				margin: 30px;
 				margin-top: 65px;
