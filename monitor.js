@@ -30,7 +30,7 @@ require('child_process').exec('httpd -t -D DUMP_VHOSTS', function (err, stdout, 
 			//
 				
 			
-			require('./nasql.js').monitor(vh.name , config.log).on('log.access',function(data){
+			require('./nasql.js').monitor(vh.name , config.log, 'stats').on('log.access',function(data){
 				
 				var location=(function(obj){
 					if(obj===false)return false;
