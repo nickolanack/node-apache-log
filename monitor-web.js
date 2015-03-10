@@ -66,19 +66,25 @@ if(require('fs').exists(settings,function(exists){
 			}
 			
 			
-			//start process.
+			// start process.
+			// this is only done if a path argument is supplied. 
+			// and does not work if the current process does not have read
+			// access to the log files. It is best to start sock-monitor.js 
+			// as a seperate thread (under a root account)
 			
 			var out = require('fs').openSync('./monitor.log', 'a');
 			var err = require('fs').openSync('./monitor.log', 'a');
 			console.log('node '+__dirname+'/sock-monitor.js');
-			var child = require('child_process').spawn('node',[
-			                                                   __dirname+'/sock-monitor.js',
-			                                                   path,
-			                                                   label
-			                                                   ], {
-				detached: true,
-				stdio: [ 'ignore', out, err ]
-			});
+			var child = require('child_process').spawn('node',
+				[
+                    __dirname+'/sock-monitor.js',
+                	path,
+                    label
+                ], {
+					detached: true,
+					stdio: [ 'ignore', out, err ]
+				}
+			);
 			
 	
 			child.unref();
