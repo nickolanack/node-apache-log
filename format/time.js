@@ -6,7 +6,7 @@ function format(data){
 	
 	if(data.time==undefined)return;
 	
-	return {time:data.time+'s'}
+	return {time:Math.round(data.time/100.0)/10.0+'ms'}
 
 	
 }
