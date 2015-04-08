@@ -23,7 +23,7 @@ require('fs').exists(path,function(exists){
 		}
 
 
-		console.log('starting monitor: '+label=((error_log!==false)?' access, and error log':' access log'));
+		console.log('starting monitor: '+label+((error_log!==false)?' access, and error log':' access log'));
 
 		var lastlocation=false;
 		var lastip=null;
