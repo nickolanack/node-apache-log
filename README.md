@@ -1,5 +1,7 @@
 # node-apache-log
 
+This is a command line tool (mostly) used to monitor large numbers of apache virtual hosts at once
+
 btw: this tool has been created for my own use on rhel6 server with apache 2.2.15. If this does not work for your system
 feel free to make modifications
 
