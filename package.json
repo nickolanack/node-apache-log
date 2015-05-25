@@ -1,0 +1,26 @@
+{ 
+	"name": "node-apache-log",
+	"description":"an apache monitoring tool",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nickolanack/node-apache-log.git"
+	},
+	"author": {
+		"name": "Nick Blackwell"
+	},
+	"keywords":["apache","log", "named virtual host monitor"],
+	"version": "1.0.0",
+	"url": "https://github.com/nickolanack/node-apache-log/issues",
+	"email": "nickblackwell82@gmail.com",
+	"homepage": "https://github.com/nickolanack/node-apache-log",
+	"license": "MIT",
+	"dependencies": { 
+		"colors": "latest",
+		"node-apache-config":"git://github.com/nickolanack/node-apache-config.git#master"
+
+	},
+	"main": "./monitor.js"
+}
