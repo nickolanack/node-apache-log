@@ -49,7 +49,7 @@ require('fs').exists(path,function(exists){
 				lastip=data.ip;
 			}
 
-			console.log(require('./log-format.js').format(data));
+			console.log(require('node-apache-log-parser').format(data));
 		}).on('error', function(data){
 			console.log(JSON.stringify(data));
 		});
