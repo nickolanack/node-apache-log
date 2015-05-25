@@ -20,6 +20,7 @@
 	"dependencies": { 
 		"colors": "latest",
 		"node-apache-config":"git://github.com/nickolanack/node-apache-config.git#master"
+		"node-apache-log-parser":"git://github.com/nickolanack/node-apache-log-parser.git#master"
 
 	},
 	"main": "./monitor.js"
