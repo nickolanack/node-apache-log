@@ -16,9 +16,17 @@ a message to the terminal.
 Reverse geocoded location data (from ip) is also displayed in the terminal. However, on a clients first visit a request is made to freegeoip for location data and until the location information recieved log entries are printed without it.
 
 
-requires node modules sqlite3, colors, and uses fs.watchFile. 
+requires node modules colors, and uses fs.watchFile. 
 
+Quick use:
+```
+git clone https://github.com/nickolanack/node-apache-log.git
+cd node-apache-log
+npm install
+node monitor
+```
 
+Examples:
 ```
 # will monitor a single apache log file
 node monitor-one.js /path/to-apache_acces_log
