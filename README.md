@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/nickolanack/node-apache-log.svg?branch=master)](https://travis-ci.org/nickolanack/node-apache-log)
+
 # node-apache-log
 
 This is a command line tool (mostly) used to monitor large numbers of apache virtual hosts at once
