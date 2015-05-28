@@ -13,7 +13,7 @@ function ApacheLogMonitor(name, logfile, format){
 	
 	var formats=['common', 'error', 'stats'];
 	if(formats.indexOf(format)===-1){
-		throw new Error('Unknown log format: \''+format+'\'. Epected one of '+JSON.stringify(formats));
+		throw new Error('Unknown log format: \''+format+'\'. Expected one of '+JSON.stringify(formats));
 	}
 	me._format=format;
 	me._parseLine=require('node-apache-log-parser').parse;
@@ -174,6 +174,7 @@ ApacheLogMonitor.prototype._monitor=function(resource){
 							return;
 						}
 						data.stat_size=stat.size
+						me.emit("log", data);
 						me.emit("log."+data.event, data);	
 						//console.log("log."+data.event);
 					});
