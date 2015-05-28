@@ -38,7 +38,7 @@ getClientData=function(name){
 					var error_log=path.replace('-access_log','-error_log');
 				}
 			
-				require('./nasql.js').monitor(label , path).on('log.access',function(data){
+				require('./apache-log-monitor.js').monitor(label , path).on('log.access',function(data){
 					Object.keys(clients).forEach(function(k){
 						clients[k].lines.push(data);
 					});
@@ -52,7 +52,7 @@ getClientData=function(name){
 
 					if(exists){
 
-						require('./nasql.js').monitor(label+' error_log' , error_log, 'error').on('log.error',function(data){
+						require('./apache-log-monitor.js').monitor(label+' error_log' , error_log, 'error').on('log.error',function(data){
 							Object.keys(clients).forEach(function(k){
 								clients[k].lines.push(data);
 							});

@@ -29,7 +29,7 @@ require('fs').exists(path,function(exists){
 		var lastip=null;
 		var colors = require("colors");
 
-		require('./nasql.js').monitor(label , path).on('log.access',function(data){
+		require('./apache-log-monitor.js').monitor(label , path).on('log.access',function(data){
 
 			if(geocode===null){
 				geocode=require('./node-freegeoip.js');
@@ -61,7 +61,7 @@ require('fs').exists(path,function(exists){
 			
 			if(exists){
 
-				require('./nasql.js').monitor(label+' error_log' , error_log, 'error').on('log.error',function(data){
+				require('./apache-log-monitor.js').monitor(label+' error_log' , error_log, 'error').on('log.error',function(data){
 	
 					console.log(JSON.stringify(data));
 	

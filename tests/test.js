@@ -16,7 +16,7 @@ fs.closeSync(fd);
 var intv;
 var fd=fs.openSync(file, 'a');
 
-require('../nasql.js').monitor('Some Name', file).on('log',function(data){
+require('../apache-log-monitor.js').monitor('Some Name', file).on('log',function(data){
 	
 	console.log('success!');
 	clearInterval(intv);

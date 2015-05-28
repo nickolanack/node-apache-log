@@ -18,7 +18,7 @@ apache.getHostsMeta(function(vhosts){
 		
 		apache.getAccessLog(vh.name, function(file){
 			
-			require('./nasql.js').monitor(vh.name , file, 'stats').on('log.access',function(data){
+			require('./apache-log-monitor.js').monitor(vh.name , file, 'stats').on('log.access',function(data){
 				
 				var location=(function(obj){
 					if(obj===false)return false;
@@ -48,7 +48,7 @@ apache.getHostsMeta(function(vhosts){
 		
 		apache.getErrorLog(vh.name, function(file){
 			
-			require('./nasql.js').monitor(vh.name , file, 'error').on('log.error',function(data){
+			require('./apache-log-monitor.js').monitor(vh.name , file, 'error').on('log.error',function(data){
 				
 				console.log(JSON.stringify(data));
 
