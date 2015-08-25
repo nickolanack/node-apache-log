@@ -11,19 +11,21 @@ if (! defined('DS')) {
 
 if (key_exists('get', $_GET)) {
     
-    $jsonf = 'monitor_sock.json';
-    if (file_exists(__DIR__ . DS . $jsonf)) {
-        $jsn = json_decode(file_get_contents($file));
+    $error = json_encode(
+        array(
+            array(
+                'stop' => 'run: sudo node node-apache-log/sock-monitor.js /var/log/httpd/bcmarinetrails-access_log >/dev/null 2>&1 &'
+            )
+        ));
+    
+    $jsonsock = 'monitor_sock.json';
+    if (file_exists(__DIR__ . DS . $jsonsock)) {
+        $json = json_decode(file_get_contents(__DIR__ . DS . $jsonsock));
         $pid = $json->pid;
         $cmd = 'ps -p ' . $pid . ' --no-headers';
         
         $data = trim(shell_exec($cmd));
-        $error = json_encode(
-            array(
-                array(
-                    '       stop' => 'run: sudo node node-apache-log/sock-monitor.js /var/log/httpd/bcmarinetrails-access_log >/dev/null 2>&1 &'
-                )
-            ));
+        die($data);
         
         if (! empty($data)) {
             $psname = trim(substr($data, strripos($data, ' ')));
@@ -35,6 +37,10 @@ if (key_exists('get', $_GET)) {
             echo $error;
             return;
         }
+    } else {
+        
+        echo $error;
+        return;
     }
     
     // shell_exec('cd '.__DIR__);

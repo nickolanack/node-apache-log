@@ -3,7 +3,8 @@ console.log('Starting Apache-Log-Monitor Server');
 
 var conf={
 	port:9384,
-	timeout:-1
+	timeout:-1,
+	pid:process.pid
 };
 
 var settings='./monitor_sock.json';
