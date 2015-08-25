@@ -5,10 +5,14 @@ if (empty($id)) {
     $id = session_id();
 }
 
+if (! defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+
 if (key_exists('get', $_GET)) {
     
     $jsonf = 'monitor_sock.json';
-    if (file_exists($jsonf)) {
+    if (file_exists(__DIR__ . DS . $jsonf)) {
         $jsn = json_decode(file_get_contents($file));
         $pid = $json->pid;
         $cmd = 'ps -p ' . $pid . ' --no-headers';
@@ -17,7 +21,7 @@ if (key_exists('get', $_GET)) {
         $error = json_encode(
             array(
                 array(
-                    '       stop' => 'run: sudo node node-apache-log/sock_monitor.js /var/log/httpd/bcmarinetrails-access_log >/dev/null 2>&1 &'
+                    '       stop' => 'run: sudo node node-apache-log/sock-monitor.js /var/log/httpd/bcmarinetrails-access_log >/dev/null 2>&1 &'
                 )
             ));
         
