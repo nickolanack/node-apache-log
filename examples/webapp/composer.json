@@ -1,0 +1,26 @@
+{
+    "name": "nickolanack/apache-log-monitor-webapp",
+    "description": "displays a live stream of vhost activity thorugh a web interface",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nick Blackwell",
+            "email": "nickblackwell82@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "nickolanack/Scaffolds": "dev-master",
+        "nickolanack/node-apache-log": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:nickolanack/Scaffolds.git"
+        },
+         {
+            "type": "vcs",
+            "url":  "git@github.com:nickolanack/node-apache-log.git"
+        }
+    ]
+}
