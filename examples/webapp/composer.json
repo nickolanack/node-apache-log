@@ -10,17 +10,12 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "nickolanack/Scaffolds": "dev-master",
-        "nickolanack/node-apache-log": "dev-master"
+        "nickolanack/Scaffolds": "dev-master"
     },
     "repositories": [
         {
             "type": "vcs",
             "url":  "git@github.com:nickolanack/Scaffolds.git"
-        },
-         {
-            "type": "vcs",
-            "url":  "git@github.com:nickolanack/node-apache-log.git"
         }
     ]
 }
