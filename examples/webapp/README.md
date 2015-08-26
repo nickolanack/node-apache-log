@@ -1,9 +1,13 @@
 #webapp example
 
 You can create a web interface for your apache monitor which uses sock-monitor.js and monitor-web.js.
-If put this in a publicly accesible location you should make ensure that the page is secured using basic-auth or something otherwise private data could be exposed. 
+If you put this in a publicly accessible location you should make ensure that the page is secured using basic-auth, or something, otherwise private data could be exposed. 
 
 requires node and composer
+
+
+##Setup
+
 
 ```
 
