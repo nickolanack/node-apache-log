@@ -14,10 +14,9 @@ if (key_exists('get', $_GET)) {
     $error = json_encode(
         array(
             array(
-                'stop' => 'run: sudo node node-apache-log/sock-monitor.js /var/log/httpd/bcmarinetrails-access_log >/dev/null 2>&1 &'
+                'stop' => 'run: sudo node node-apache-log/sock-monitor.js /var/log/httpd/bcmarinetrails-access_log >monitor.log 2>&1 &'
             )
         ));
-    
     $jsonsock = 'monitor_sock.json';
     if (file_exists(__DIR__ . DS . $jsonsock)) {
         $json = json_decode(file_get_contents(__DIR__ . DS . $jsonsock));
@@ -25,15 +24,19 @@ if (key_exists('get', $_GET)) {
         $cmd = 'ps -p ' . $pid . ' --no-headers';
         
         $data = trim(shell_exec($cmd));
-        die($data);
         
         if (! empty($data)) {
+            
             $psname = trim(substr($data, strripos($data, ' ')));
             if ($psname !== 'node') {
-                echo $psname;
+                unlink(__DIR__ . DS . $jsonsock);
+                echo $error;
                 return;
+            } else {
+                // good it is running!
             }
         } else {
+            unlink(__DIR__ . DS . $jsonsock);
             echo $error;
             return;
         }
