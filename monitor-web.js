@@ -86,7 +86,6 @@ if(require('fs').exists(settings,function(exists){
 				}
 			);
 			
-	
 			child.unref();
 			
 			setTimeout(function(){

@@ -84,19 +84,16 @@ getClientData=function(name){
 	clients[name].last=Date.now();
 	var lines=clients[name].lines;
 	clients[name].lines=[];
-	
-	
+		
 	Object.keys(clients).forEach(function(v, k){
 		if((Date.now()-v.last)>15*1000){
 			delete client[k];
 		}
 	});
 	
-	
 	return lines;
 	
 }
-
 
 require('fs').exists(settings,function(exists){
 	
@@ -121,9 +118,7 @@ require('fs').exists(settings,function(exists){
 			},time);
 			
 		}
-		
-		
-		
+			
 		server = require('net').createServer(function(socket) { 
 			//'connection' listener
 			socket.setEncoding('utf8');
@@ -144,12 +139,10 @@ require('fs').exists(settings,function(exists){
 				console.log(data);
 				
 			});
-			
-			
+						
 		});
 		
 		timeout(conf.timeout*1000);
-
 
 		server.listen(conf.port, function() { //'listening' listener
 			
@@ -158,19 +151,10 @@ require('fs').exists(settings,function(exists){
 			
 		});
 	
-
 		server.on('close', function(err){
 			console.log('server closed');
 			require('fs').unlink(settings);
 		});
-
-
-
-		
-		
-		
-		
-		
 		
 	}
 	
